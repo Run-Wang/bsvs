@@ -203,7 +203,7 @@ bic <- function(X,y,gamma){
       temp2 = temp3
     }
   }
-  return(p)
+  return(gamma)
 }
 
 
