@@ -113,7 +113,7 @@ bis <- function(X,y,lam=1, w=NULL, pp = FALSE,max.var = nrow(X))
     postprob[3] = logp[j]
     if(postprob[3]<postprob[2] && pp){
       cat(" Done.\n")
-      return(list(model.pp = model[1:2], postprobs=postprob[1],lam=lam))
+      return(list(model.pp = model[1], postprobs=postprob[1:2],lam=lam))
     }
     
     # cat(" ,",logp[j],"\n")
