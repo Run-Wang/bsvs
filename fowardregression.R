@@ -247,7 +247,7 @@ MSPE_B <- function(xtrain, xtest, ytrain, ytest,gamma,lam){
   XX = crossprod(XD) + lam_mat
   beta = solve(XX, crossprod(XD,ytrain))
   
-  beta[1] = beta[1] - (D * xbar) %*% beta[-1]
+  beta[1] = beta[1] - sum((D * xbar) * beta[-1])
   beta[-1] = D * beta[-1]
   
   yhat = as.numeric(xtest[,gamma,drop=FALSE] %*% beta[-1] + beta[1])
@@ -256,7 +256,19 @@ MSPE_B <- function(xtrain, xtest, ytrain, ytest,gamma,lam){
 }
 
 
-
+logpp_true <- function(X, y, trueidx, lam, w){
+  X = scale(as.matrix(X[,trueidx,drop = F]))
+  y = scale(y)
+  yty <- crossprod(y)
+  n <- nrow(X)
+  p <- ncol(X)
+  xty <- crossprod(X,y)
+  
+  gamma <- length(trueidx)
+  
+  res <- gamma/2*log(lam) - 1/2 * logdet(crossprod(X)+lam*diag(p)) - (n-1)/2 * log(yty - t(xty) %*% solve(crossprod(X)+lam*diag(p), xty)) + gamma * log(w/(1-w))
+  return(res)
+}
 
 
 
