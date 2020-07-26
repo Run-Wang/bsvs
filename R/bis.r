@@ -121,7 +121,7 @@ bis <- function(X,y,lam=1, w=NULL, pp = FALSE,max.var = nrow(X))
   
   
   
-  if(max.var > 3)
+  if(max.var >= 3)
   {
     for(ii in 3:max.var)
     {
