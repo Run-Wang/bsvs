@@ -108,7 +108,7 @@ fr <- function(X,y,lam=0, max.var = n-1)
   
   
   
-  if(max.var > 3)
+  if(max.var >= 3)
   {
     for(ii in 3:max.var)
     {
