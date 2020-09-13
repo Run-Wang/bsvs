@@ -1,5 +1,5 @@
 calsigma <- function(Rsquared, trueidx, truebeta, type, rho=NULL, 
-                     factor.mat=NULL, ngroup=NULL, delta=NULL) {
+                     factor.mat=NULL, ngroup=NULL, delta=NULL, tau = 1) {
   p <- length(trueidx)
   truebeta <- truebeta[trueidx] 
   var.x <- matrix(0, nrow = p, ncol=p)
@@ -21,7 +21,7 @@ calsigma <- function(Rsquared, trueidx, truebeta, type, rho=NULL,
   }
   
   if (type == "factor") {
-    var.xb = sum((factor.mat[,1:p] %*% truebeta)^2) + sum(truebeta^2) 
+    var.xb = sum((factor.mat[,1:p] %*% truebeta)^2) + tau^2 * sum(truebeta^2) 
   }
   
   if (type == "group") {

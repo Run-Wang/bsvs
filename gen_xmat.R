@@ -21,9 +21,9 @@ dtgen.ar <- function(n, p, rho) {
 
 
 #--------------------------------- Factor modeles -----------------------------------#
-dtgen.factor <- function(n, p, factor, k) {
+dtgen.factor <- function(n, p, factor, k, tau = 1) {
   phi <- matrix(rnorm(n*k), n, k)
-  x <- phi %*% factor + matrix(rnorm(n*p),n,p)
+  x <- phi %*% factor + tau * matrix(rnorm(n*p),n,p)
   return(x)
 }
 dtgen.factor <- cmpfun(dtgen.factor)
