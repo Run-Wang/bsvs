@@ -41,7 +41,7 @@ dtgen.group <- function(n, p, p.true, m, delta) {
 
 #-------------------------------- Extreme Correlation -------------------------------#
 dtgen.extrmCor <- function(n, p, p.true) {
-  w = matrix(rnorm(n*p), n, p.true)
+  w = matrix(rnorm(n*p.true), n, p.true)
   z = matrix(rnorm(n*p), n, p)
   x5 = matrix(0, n, p)
   x5[, 1:p.true] = (z[, 1:p.true] + w) / sqrt(2)
