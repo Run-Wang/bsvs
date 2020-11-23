@@ -41,8 +41,8 @@ holp <- function(X,y){
   
   XD = as.matrix(X %*% Diagonal(length(D),D))
   S1 = tcrossprod(XD)
-  Z = as.numeric(X %*% (xbar*D))
-  XX = sweep(S1-Z+sum(xbar^2*D^2),1,Z,'-')
+  Z = as.numeric(XD %*% (xbar*D))
+  XX = sweep(S1-Z+sum(xbar^2*D^2),2,Z,'-')
   #temp = solve(XX,ys)
   temp2 = ginv(XX)
   temp  = temp2 %*% ys
