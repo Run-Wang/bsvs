@@ -205,6 +205,30 @@ bic <- function(X,y,gamma){
   return(gamma)
 }
 
+bic_2 <- function(X,y,gamma){
+  p = dim(X)[2]
+  n = dim(X)[1]
+  #R <- solve(chol(crossprod(X)))
+  X = scale(as.matrix(X[,gamma,drop = F]))
+  y = scale(y)
+  yty <- crossprod(y)
+  xty <- crossprod(X,y)
+  temp = 0
+  temp2 = log(yty)
+  result = 0
+  for(i in 1:50){
+    temp = PX(X[,1:i],y)
+    temp3 <- log((yty - temp)) + i * (log(n) + 2 * log(p)) / n
+    if (as.numeric(temp3)<as.numeric(temp2)){
+      temp2 = temp3
+      result = i
+    }
+  }
+  if(result == 0){
+    return(integer(0))
+  }
+  return(gamma[1:result])
+}
 
 
 MSPE <- function(xtrain, xtest, ytrain, ytest,gamma){
