@@ -188,7 +188,7 @@ bic <- function(X,y,gamma){
   temp2 = log(yty)
   for(i in 1:p){
     temp = PX(X[,1:i],y)
-    temp3 <- log((yty - temp)/n) + i * (log(n) + 2 * log(p)) / n
+    temp3 <- log((yty - temp)) + i * (log(n) + 2 * log(p)) / n
     if (as.numeric(temp3)>as.numeric(temp2)){
       #return(i-1)
       if(i == 1){
