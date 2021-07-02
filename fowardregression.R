@@ -177,13 +177,12 @@ fr <- function(X,y,lam=0, max.var = n-1)
 PX <- function(X,y) crossprod(y,X)%*%ginv(crossprod(X))%*%crossprod(X,y)
 
 bic <- function(X,y,gamma){
-  
+  p = dim(X)[2]
+  n = dim(X)[1]
   #R <- solve(chol(crossprod(X)))
   X = scale(as.matrix(X[,gamma,drop = F]))
   y = scale(y)
   yty <- crossprod(y)
-  p = dim(X)[2]
-  n = dim(X)[1]
   xty <- crossprod(X,y)
   temp = 0
   temp2 = log(yty)
