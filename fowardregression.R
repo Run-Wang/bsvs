@@ -234,7 +234,7 @@ bic_2 <- function(X,y,gamma){
 MSPE <- function(xtrain, xtest, ytrain, ytest,gamma){
   if(length(gamma) == 0){
     ybar = mean(ytrain)
-    return(list(mspe = as.numeric(mean(ytest-ybar)^2),R2 = 0))
+    return(list(mspe = as.numeric(mean(ytest-ybar)^2),r = 0))
   }
   
   xtrain1 = cbind(1,xtrain[,gamma,drop=FALSE])
@@ -250,7 +250,7 @@ MSPE <- function(xtrain, xtest, ytrain, ytest,gamma){
 MSPE_B <- function(xtrain, xtest, ytrain, ytest,gamma,lam){
   if(length(gamma) == 0){
     ybar = mean(ytrain)
-    return(list(mspe = as.numeric(mean(ytest-ybar)^2),R2 = 0))
+    return(list(mspe = as.numeric(mean(ytest-ybar)^2),r = 0))
   }
   
   xtrain = xtrain[,gamma,drop = FALSE]
