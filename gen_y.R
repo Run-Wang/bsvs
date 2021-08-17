@@ -1,5 +1,5 @@
 calsigma <- function(Rsquared, trueidx, truebeta, type, rho=NULL, 
-                     factor.mat=NULL, ngroup=NULL, delta=NULL, tau = 1) {
+                     factor.mat=NULL, ngroup=NULL, delta=NULL) {
   p <- length(trueidx)
   truebeta <- truebeta[trueidx] 
   var.x <- matrix(0, nrow = p, ncol=p)
@@ -21,7 +21,7 @@ calsigma <- function(Rsquared, trueidx, truebeta, type, rho=NULL,
   }
   
   if (type == "factor") {
-    var.xb = sum((factor.mat[,1:p] %*% truebeta)^2) + tau^2 * sum(truebeta^2) 
+    var.xb = sum((factor.mat[,1:p] %*% truebeta)^2) + sum(truebeta^2) 
   }
   
   if (type == "group") {
@@ -82,8 +82,20 @@ calsigma <- function(Rsquared, trueidx, truebeta, type, rho=NULL,
 
 calsigma <- cmpfun(calsigma)
 
-gen_y <- function(x, sigma, truebeta) {
+gen_y <- function(x, sigma, truebeta, type = "norm") {
+  if(!(type %in% c("norm", "exp", "t"))){
+    print("Invalid input!")
+    return(FALSE)
+  }
+  if(type == "norm"){
   y = 0.5 + x %*% truebeta + sigma * rnorm(dim(x)[1])
+  }
+  else if(type == "exp"){
+    y = 0.5 + x %*% truebeta + sigma * (rexp(dim(x)[1]) - 1)
+  }
+  else{
+    y = 0.5 + x %*% truebeta + sigma * (rt(dim(x)[1], 20) / sqrt(20/18))
+  }
 }
 
 gen_y <- cmpfun(gen_y)
